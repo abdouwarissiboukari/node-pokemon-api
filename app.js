@@ -6,6 +6,18 @@ let pokemons = require('./mock-pokemon')
 const app = express()
 const port = 3000
 
+// const logger = (req, res, next) => {
+//   console.log(`URL: ${req.url}`)
+//   next()
+// }
+
+// app.use(logger)
+app.use((req, res, next) => {
+    console.log(`URL: ${req.url}`)
+    next()
+  }
+)
+
 app.get('/', (req, res) => res.send('Hello, Express!'))
 app.get('/api/pokemon/:id', (req, res) => {
   const id = parseInt(req.params.id)
