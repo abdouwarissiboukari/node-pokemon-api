@@ -41,7 +41,8 @@ app.get('/api/pokemons', (req, res) =>
   {
     // const pokemonsCount = pokemons.length
     // res.send(`Il y a ${pokemonsCount} pokémon dans le pokedex pour le moment`)
-    res.json(success('La liste des pokémons a bien été récupée', pokemons))
+    const message = 'La liste des pokémons a bien été récupée'
+    res.json(success(message, pokemons))
   }
 )
 
@@ -49,6 +50,7 @@ app.post('/api/pokemons/', (req, res) => {
     const id = getUniqueId(pokemons)
     const pokemonCreated= {...req.body, ...{id: id, created: new Date()}}
     pokemons.push(pokemonCreated)
+
     const message = `Le pokemon ${pokemonCreated.name} a bien été créé`
     res.json(success(message, pokemonCreated))
   }
