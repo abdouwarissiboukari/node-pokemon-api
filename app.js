@@ -1,4 +1,6 @@
 const express = require('express')
+const morgan = require('morgan')
+const favicon = require('serve-favicon')
 const helper = require('./helper.js')
 const {success} = require('./helper.js')
 let pokemons = require('./mock-pokemon')
@@ -12,11 +14,17 @@ const port = 3000
 // }
 
 // app.use(logger)
-app.use((req, res, next) => {
-    console.log(`URL: ${req.url}`)
-    next()
-  }
-)
+
+// app.use(
+//   (req, res, next) => {
+//     console.log(`URL: ${req.url}`)
+//     next()
+//   }
+// )
+
+app
+  .use(favicon(__dirname + '/favicon.ico'))
+  .use(morgan('dev'))
 
 app.get('/', (req, res) => res.send('Hello, Express!'))
 app.get('/api/pokemon/:id', (req, res) => {
