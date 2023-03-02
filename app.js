@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const bodyParser=require('body-parser')
+const {Sequelize} = require('sequelize')
 const helper = require('./helper.js')
 const {success} = require('./helper.js')
 const {getUniqueId}=require('./helper.js')
@@ -9,6 +10,25 @@ let pokemons = require('./mock-pokemon')
 
 const app = express()
 const port = 3000
+
+const sequelize = new Sequelize(
+  'db_a64746_pokedex',
+  'a64746_pokedex',
+  'pokedex46',
+  {
+    host: 'mysql5025.site4now.net',
+    dialect: 'mysql',
+    dialectOptions: {
+      timezone: '+00:00'
+    },
+    logging: false,
+    timezone: '+00:00'
+  }
+)
+
+sequelize.authenticate()
+  .then(_ => console.log('La connexion à la base de données a bien été établie.'))
+  .catch(error => console.error(`Impossible de se connecter à la base de données ${error}`))
 
 // const logger = (req, res, next) => {
 //   console.log(`URL: ${req.url}`)
@@ -22,7 +42,7 @@ const port = 3000
 //     console.log(`URL: ${req.url}`)
 //     next()
 //   }
-// )
+// ) sur : http://localhost:${port}`))
 
 app
   .use(favicon(__dirname + '/favicon.ico'))
@@ -79,4 +99,4 @@ app.delete('/api/pokemons/:id', (req, res) => {
   }
 )
 
-app.listen(port, () => console.log(`Notre application Node est démqrrée sur : http://localhost:${port}`))
+app.listen(port, () => console.log(`Notre application Node est démarrée sur : http://localhost:${port}`))
