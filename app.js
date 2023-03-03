@@ -2,11 +2,13 @@ const express = require('express')
 const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const bodyParser=require('body-parser')
-const {Sequelize} = require('sequelize')
+const {Sequelize, DataTypes} = require('sequelize')
 const helper = require('./helper.js')
 const {success} = require('./helper.js')
 const {getUniqueId}=require('./helper.js')
 let pokemons = require('./mock-pokemon')
+const PokemonModel = require('./src/models/pokemon')
+const pokemon = require('./src/models/pokemon')
 
 const app = express()
 const port = 3000
@@ -30,19 +32,28 @@ sequelize.authenticate()
   .then(_ => console.log('La connexion à la base de données a bien été établie.'))
   .catch(error => console.error(`Impossible de se connecter à la base de données ${error}`))
 
-// const logger = (req, res, next) => {
-//   console.log(`URL: ${req.url}`)
-//   next()
-// }
+const Pokemon = PokemonModel(sequelize, DataTypes)
+sequelize.sync({force: true})
+  .then(_ => {
+    console.log('La base de donnée "db_a64746_pokedex" a bien été créé')
 
-// app.use(logger)
+    pokemons.map(pokemon => {
+      Pokemon.create({
+        name: pokemon.name,
+        hp: pokemon.hp,
+        cp: pokemon.cp,
+        picture:pokemon.picture,
+        types: pokemon.types.join(),
+      }).then(bulbizarre => {
+        const bul = bulbizarre.toJSON()
+        bul.types = bul.types.split()
+        console.log(bul)
+      })
+    })
+  })
 
-// app.use(
-//   (req, res, next) => {
-//     console.log(`URL: ${req.url}`)
-//     next()
-//   }
-// ) sur : http://localhost:${port}`))
+
+// sequelize
 
 app
   .use(favicon(__dirname + '/favicon.ico'))
