@@ -17,15 +17,20 @@ app
   .use(morgan('dev'))
   .use(bodyParser.json())
 
-  sequelize.initDb()
+sequelize.initDb()
 
-  // Ici, nous placeront nos futurs points de terminaisons
-  findAllPokemons(app)
-  findPokemonByPk(app)
-  createPokemon(app)
-  updatePokemon(app)
-  deletePokemon(app)
+// Ici, nous placeront nos futurs points de terminaisons
+findAllPokemons(app)
+findPokemonByPk(app)
+createPokemon(app)
+updatePokemon(app)
+deletePokemon(app)
 
+// On ajoute la gestion des erreurs 404
+app.use(({res}) => {
+  const message = 'Impossible de trouver la ressource demandée! vous pouvez essayez une autre URL.'
+  res.status(404).json({message})
+})
 
 
 app.listen(port, () => console.log(`Notre application Node est démarrée sur : http://localhost:${port}`))
