@@ -3,11 +3,11 @@ const morgan = require('morgan')
 const favicon = require('serve-favicon')
 const bodyParser=require('body-parser')
 const sequelize = require('./src/db/sequelize')
-const findAllPokemons = require('./src/routes/findAllPokemons')
-const findPokemonByPk = require('./src/routes/findPokemonByPk')
-const createPokemon = require('./src/routes/createPokemon')
-const updatePokemon = require('./src/routes/updatePokemon')
-const deletePokemon = require('./src/routes/deletePokemon')
+// const findAllPokemons = require('./src/routes/findAllPokemons')
+// const findPokemonByPk = require('./src/routes/findPokemonByPk')
+// const createPokemon = require('./src/routes/createPokemon')
+// const updatePokemon = require('./src/routes/updatePokemon')
+// const deletePokemon = require('./src/routes/deletePokemon')
 
 const app = express()
 const port = 3000
@@ -20,11 +20,17 @@ app
 sequelize.initDb()
 
 // Ici, nous placeront nos futurs points de terminaisons
-findAllPokemons(app)
-findPokemonByPk(app)
-createPokemon(app)
-updatePokemon(app)
-deletePokemon(app)
+// findAllPokemons(app)
+// findPokemonByPk(app)
+// createPokemon(app)
+// updatePokemon(app)
+// deletePokemon(app)
+
+require('./src/routes/findAllPokemons')(app)
+require('./src/routes/findPokemonByPk')(app)
+require('./src/routes/createPokemon')(app)
+require('./src/routes/updatePokemon')(app)
+require('./src/routes/deletePokemon')(app)
 
 // On ajoute la gestion des erreurs 404
 app.use(({res}) => {
