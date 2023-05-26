@@ -16,7 +16,7 @@ module.exports = (app) => {
           { 
             where: { // 'name' est propriété du modèle pokemon
               name: {
-                // [Op.eq]: name // 'name' est le Critère de recherche 
+                // [Op.eq]: name // 'name' est le critère de recherche 
                 [Op.like]: `%${name}%`
                } 
             },
