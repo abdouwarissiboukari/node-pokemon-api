@@ -37,21 +37,6 @@ if(process.env.NODE_ENV === 'production'){
     }
   )
 }
-
-sequelize = new Sequelize(
-  'db_a64746_pokedex',
-  'a64746_pokedex',
-  'pokedex46',
-  {
-    host: 'mysql5025.site4now.net',
-    dialect: 'mysql',
-    dialectOptions: {
-      timezone: '+00:00'
-    },
-    logging: false,
-    timezone: '+00:00'
-  }
-)
   
 const Pokemon = PokemonModel(sequelize, DataTypes)
 const User = UserModel(sequelize, DataTypes)
