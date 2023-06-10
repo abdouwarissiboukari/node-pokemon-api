@@ -9,16 +9,15 @@ let sequelize
 if(process.env.NODE_ENV === 'production'){
   sequelize = new Sequelize(
     'bmp41i3e2p3zmx9t',
+    'yfpdlmmj5uhr1fxq',
     'nhna5ko5j0ouqnnx',
-    'pokedex46',
     {
       host: 'q0h7yf5pynynaq54.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
       dialect: 'mariadb',
       dialectOptions: {
-        timezone: '+00:00'
+        timezone: 'Etc/GMT-2'
       },
       logging: true,
-      timezone: '+00:00'
     }
   )
 }else{
