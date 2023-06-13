@@ -15,7 +15,14 @@ const port = process.env.PORT || 3000
 app
   .use(favicon(__dirname + '/favicon.ico'))
   .use(bodyParser.json())
-  .use(cors())
+  .use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    
+    next();
+})
+  // .use(cors())
 
 sequelize.initDb()
 
