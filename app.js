@@ -11,18 +11,12 @@ const cors = require('cors')
 
 const app = express()
 const port = process.env.PORT || 3000
+const host =process.env.HOST || 'http://localhost'
 
 app
   .use(favicon(__dirname + '/favicon.ico'))
-  .use(bodyParser.json())
-  .use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-origin', '*');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
-    
-    next();
-})
-  // .use(cors())
+  .use(bodyParser.json())  
+  .use(cors())
 
 sequelize.initDb()
 
@@ -52,4 +46,4 @@ app.use(({res}) => {
 })
 
 
-app.listen(port, () => console.log(`Notre application Node est démarrée sur : http://localhost:${port}`))
+app.listen(port, () => console.log(`Notre application Node est démarrée sur : ${host}:${port}`))
